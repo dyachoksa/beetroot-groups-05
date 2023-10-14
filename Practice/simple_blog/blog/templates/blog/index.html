@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    {% for post in posts %}
+        <article>
+            {% if post.image %}
+                <img src="{{ post.image.url }}" title="{{ post.title }}" />
+            {% endif %}
+            <h2>
+                <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+            </h2>
+            <p>{{ post.short_content }}</p>
+        </article>
+    {% endfor %}
+{% endblock %}

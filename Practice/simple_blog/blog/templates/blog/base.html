@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Personal Blog For Fun</title>
+
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+</head>
+<body>
+    <header>
+        <h1>Personal Blog For Fun</h1>
+
+        <nav>
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'terms_and_conditions' %}">Terms</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

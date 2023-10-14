@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+
+    <p><em>{{ post.published_at }}</em></p>
+
+    {% if post.image %}
+        <img src="{{ post.image.url }}" title="{{ post.title }}" />
+    {% endif %}
+
+    <div>
+        {{ post.content | safe }}
+    </div>
+{% endblock %}
