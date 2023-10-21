@@ -1,5 +1,10 @@
 # type hint is not a validation
 def get_total(amount: int | float, qty, discount=0.0):
+    for arg in get_total.__annotations__:
+        if arg == "amount":
+            if not isinstance(amount, get_total.__annotations__[arg]):
+                raise ValueError(f"amount should be {get_total.__annotations__[arg]}")
+
     # to validate types we need to have manual checks
     if not isinstance(amount, (int, float)) or amount <= 0:
         raise ValueError("amount should be int or float and > 0")
@@ -9,6 +14,9 @@ def get_total(amount: int | float, qty, discount=0.0):
 
     if not isinstance(discount, (int, float)) or (discount < 0 or discount > 1):
         raise ValueError("discount should be int or float")
+    
+    print(f"{get_total.__annotations__=}")
+    print(f"{get_total.__builtins__=}")
 
     return (amount*qty) - (amount*qty)*discount
 
