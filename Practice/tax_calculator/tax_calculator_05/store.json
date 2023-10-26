@@ -1,0 +1,27 @@
+[
+  {
+    "year": 2023,
+    "month": 1,
+    "amount": 1000.0
+  },
+  {
+    "year": 2023,
+    "month": 2,
+    "amount": 1150.0
+  },
+  {
+    "year": 2023,
+    "month": 3,
+    "amount": 1260.0
+  },
+  {
+    "year": 2023,
+    "month": 4,
+    "amount": 1040.50
+  },
+  {
+    "year": 2023,
+    "month": 5,
+    "amount": 1300.0
+  }
+]
