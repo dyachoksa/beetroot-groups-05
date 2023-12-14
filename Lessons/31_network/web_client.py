@@ -12,6 +12,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     print(f"Connected to {host} ({addr})...")
 
     s.sendall(b"GET /\n\n")
-    data = s.recv(1024)
+    data = s.recv(2024)
 
     print(f"Got from server:\n{data.decode('utf-8')}")
