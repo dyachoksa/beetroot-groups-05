@@ -1,16 +1,13 @@
-<!doctype html>
-<html>
-    <head>
-        <title>BookStore</title>
-    </head>
+{% extends "base.html" %}
+{% load static %}
 
-    <body>
-        <a href="/">Home</a> |
-        <a href="/about/">About</a> |
-        <a href="/terms/">Terms & Conditions</a> 
+{% block title %}Home{% endblock %}
 
-        <h1>Welcome to the BookStore!</h1>
+{% block content %}
+    <picture>
+        <img src="{% static 'img/books.jpg' %}" alt="books" />
+    </picture>
 
-        <p>The place where books live!</p>
-    </body>
-</html>
+    <h1>Welcome to the BookStore!</h1>
+    <p>The place where books live!</p>
+{% endblock %}
