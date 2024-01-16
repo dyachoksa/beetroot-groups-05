@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}{{ author.name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ author.name }}</h1>
+
+    <div>
+        {{ author.bio | linebreaksbr }}
+    </div>
+
+    <hr >
+
+    <h3>Books by {{ author.name }}:</h3>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for book in books %}
+            <div class="col">
+                {% include "books/partials/book_card.html" %}
+            </div>
+        {% empty %}
+            <div class="col col-md-2 col-lg-3">
+                <p>No books for this author yet</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

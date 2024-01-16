@@ -1,0 +1,16 @@
+<div class="card h-100">
+    <div class="card-body">
+        <h5 class="card-title">
+            <a href="{% url 'books_detail' book.id %}">{{ book.title }}</a>
+        </h5>
+        {% if book.author %}
+            <h6 class="card-subtitle mb-2 text-body-secondary">
+                Author: <a href="{% url 'books_author' book.author.id %}">{{ book.author.name }}</a>
+            </h6>
+        {% endif %}
+        <h6 class="card-subtitle mb-2 text-body-secondary">
+            Pub year: {{ book.pub_year }}
+        </h6>
+        <p class="card-text">{{ book.description | truncatechars:100 }}</p>
+    </div>
+</div>

@@ -10,4 +10,14 @@
 
     <h1>Welcome to the BookStore!</h1>
     <p>The place where books live!</p>
+
+    <hr >
+    <h3>Latest books</h3>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for book in latest_books %}
+            <div class="col">
+                {% include "books/partials/book_card.html" %}
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
