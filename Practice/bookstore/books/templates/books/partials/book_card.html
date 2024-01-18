@@ -1,4 +1,10 @@
+{% load static %}
 <div class="card h-100">
+    {% if book.image %}
+        <img class="card-img-top" src="{{ book.image.url }}" alt="{{ book.title }}" />
+    {% else %}
+        <img class="card-img-top" src="{% static 'img/no_image.png' %}" alt="{{ book.title }}" />
+    {% endif %}
     <div class="card-body">
         <h5 class="card-title">
             <a href="{% url 'books_detail' book.id %}">{{ book.title }}</a>

@@ -2,6 +2,7 @@ from django.db import models
 
 
 class Author(models.Model):
+    photo = models.ImageField(blank=True, null=True, upload_to="authors/photos")
     name = models.CharField(max_length=150)
     bio = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -18,6 +19,7 @@ class Book(models.Model):
     author = models.ForeignKey(
         Author, on_delete=models.SET_NULL, blank=True, null=True, related_name="books"
     )
+    image = models.ImageField(blank=True, null=True, upload_to="books/images/%Y")
     title = models.CharField(max_length=300)
     isbn = models.CharField(max_length=50)
     description = models.TextField(blank=False, null=False)

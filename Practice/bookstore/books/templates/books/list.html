@@ -5,11 +5,43 @@
 {% block content %}
     <h1>All books</h1>
 
-    <div class="mt-1 row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <div class="mt-1 row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
         {% for book in books %}
             <div class="col">
                 {% include "books/partials/book_card.html" %}
             </div>
         {% endfor %}
     </div>
+
+    <nav class="mt-4" aria-label="Books pagination">
+        <ul class="pagination justify-content-center">
+          <li class="page-item {% if not books.has_previous %} disabled {% endif %}">
+            {% if books.has_previous %}
+                <a class="page-link" href="?page={{ books.previous_page_number }}">Previous</a>
+            {% else %}
+                <span class="page-link">Previous</span>
+            {% endif %}            
+          </li>
+
+          {% for page in books.paginator.page_range %}
+            {% if page == books.number %}
+                <li class="page-item active" aria-current="page">
+                    <span class="page-link">{{ page }}</span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                </li>
+            {% endif %}
+          {% endfor %}
+          
+          <li class="page-item {% if not books.has_next %} disabled {% endif %}">
+            {% if books.has_next %}
+                <a class="page-link" href="?page={{ books.next_page_number }}">Next</a>
+            {% else %}
+                <span class="page-link">Next</span>
+            {% endif %}            
+          </li>
+        </ul>
+    </nav>
 {% endblock %}

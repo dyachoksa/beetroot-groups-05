@@ -1,20 +1,32 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}{{ book.title }}{% endblock %}
 
 {% block content %}
     <h1>{{ book.title }}</h1>
 
-    <div>
-        <p>
-        {% if book.author %}
-            <strong>Author</strong>: <a href="{% url 'books_author' book.author.id %}">{{ book.author.name }}</a> <br>
-        {% endif %}
-        <strong>Publication year</strong>: {{ book.pub_year }}<br>
-        <strong>ISBN</strong>: {{ book.isbn }}</p>
-    </div>
-
-    <div>
-        {{ book.description | linebreaksbr }}
+    <div class="row row-cols-1 row-cols-md-3">
+        <div class="col col-md-3">
+            {% if book.image %}
+                <img class="img-thumbnail" src="{{ book.image.url }}" alt="{{ book.title }}" />
+            {% else %}
+                <img class="img-thumbnail" src="{% static 'img/no_image.png' %}" alt="{{ book.title }}" />
+            {% endif %}
+        </div>
+        <div class="col col-md-9">
+            <div>
+                <p>
+                {% if book.author %}
+                    <strong>Author</strong>: <a href="{% url 'books_author' book.author.id %}">{{ book.author.name }}</a> <br>
+                {% endif %}
+                <strong>Publication year</strong>: {{ book.pub_year }}<br>
+                <strong>ISBN</strong>: {{ book.isbn }}</p>
+            </div>
+        
+            <div>
+                {{ book.description | linebreaksbr }}
+            </div>
+        </div>
     </div>
 {% endblock %}

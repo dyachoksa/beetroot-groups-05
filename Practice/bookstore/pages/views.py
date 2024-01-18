@@ -4,7 +4,7 @@ from books.models import Book
 
 
 def home(request):
-    latest_books = Book.objects.order_by('-created_at')[:3]
+    latest_books = Book.objects.order_by('-created_at')[:4]
 
     context = {
         "latest_books": latest_books,

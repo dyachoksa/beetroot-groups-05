@@ -4,16 +4,30 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    <picture>
-        <img src="{% static 'img/books.jpg' %}" alt="books" />
-    </picture>
+    <div class="row flex-lg-row-reverse align-items-center g-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+            <img src="{% static 'img/books.jpg' %}" class="d-block mx-lg-auto img-thumbnail" alt="BookStore" width="600" height="384" loading="lazy">
+        </div>
 
-    <h1>Welcome to the BookStore!</h1>
-    <p>The place where books live!</p>
+        <div class="col-lg-6">
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">
+                Welcome to the BookStore!
+            </h1>
 
-    <hr >
-    <h3>Latest books</h3>
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <p class="lead">
+                Nostra quis molestiae mattis tellus luctus, nobis lacinia veritatis mattis! 
+                Ipsam eum dui dolore quis minim consequat vel minus quam proin libero proident 
+                velit a natoque nibh posuere? Blanditiis maxime.
+            </p>
+          
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Join now!</button>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="mt-4">Latest books</h3>
+    <div class="row row-cols-1 row-cols-md-4 g-4">
         {% for book in latest_books %}
             <div class="col">
                 {% include "books/partials/book_card.html" %}
