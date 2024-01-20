@@ -17,7 +17,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from books import views as book_views
 from pages import views
@@ -25,6 +25,7 @@ from pages import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
     path('authors/<int:pk>/', book_views.author_detail, name="books_author"),
     path('books/<int:pk>/', book_views.book_detail, name="books_detail"),
     path('books/', book_views.book_list),

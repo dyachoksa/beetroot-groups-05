@@ -1,5 +1,6 @@
 <!doctype html>
 {% load static %}
+{% load django_bootstrap5 %}
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -17,6 +18,8 @@
         {% include "partials/header.html" %}
 
         <main class="container">
+            {% bootstrap_messages %}
+            
             {% block content %}{% endblock %}
         </main>
 
