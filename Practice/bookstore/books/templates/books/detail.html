@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load django_bootstrap5 %}
 
 {% block title %}{{ book.title }}{% endblock %}
 
@@ -28,5 +29,34 @@
                 {{ book.description | linebreaksbr }}
             </div>
         </div>
+    </div>
+
+    <h3 class="mt-4">Reviews ({{ book.reviews.count }})</h3>
+
+    {% if request.user.is_authenticated %}
+        <div class="mt-4">
+            <form action="." method="post">
+                {% csrf_token %}
+
+                {% bootstrap_form review_form %}
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    {% endif %}
+
+    {% for review in reviews %}
+        <div class="mt-4">
+            <h5>{{ review.created_at|date:"DATETIME_FORMAT" }}
+                <small class="text-muted">{{ review.user.username }}</small>
+            </h5>
+            <div>
+                {{ review.content }}
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="mt-4">
+        {% bootstrap_pagination reviews justify_content='center' %}
     </div>
 {% endblock %}
