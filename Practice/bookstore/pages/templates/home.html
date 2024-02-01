@@ -34,4 +34,19 @@
             </div>
         {% endfor %}
     </div>
+
+    <h3 class="mt-4">Latest reviews</h3>
+    <div>
+        {% for review in latest_reviews %}
+            <div class="mt-2">
+                <div>
+                    <strong>{{ forloop.counter }}.</strong>
+                    <em>{{ review.created_at | date:"DATETIME_FORMAT" }}</em> by
+                    <em>{{ review.user.username }}</em> on 
+                    <a href="{{ review.book.get_absolute_url }}">{{ review.book.title }}</a>
+                </div>
+                <p class="ps-3">{{ review.content | truncatewords:15 }}</p>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

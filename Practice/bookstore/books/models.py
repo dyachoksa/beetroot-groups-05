@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Author(models.Model):
@@ -13,6 +14,9 @@ class Author(models.Model):
     
     def __repr__(self) -> str:
         return "<Author id={} name={}>".format(self.id, self.name)
+    
+    def get_absolute_url(self):
+        return reverse("books_author", kwargs={"pk": self.pk})
 
 
 class Book(models.Model):
@@ -34,3 +38,6 @@ class Book(models.Model):
         return "<Book id={} title={} year={}>".format(
             self.id, self.title, self.pub_year,
         )
+    
+    def get_absolute_url(self):
+        return reverse("books_detail", kwargs={"pk": self.pk})

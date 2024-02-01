@@ -35,8 +35,17 @@
         <img src="{% static 'img/books-icon.png' %}" alt="logo" width="32" height="32" />
         <span class="ps-1 fs-4 fw-bold">BookStore</span>
       </a>
-      <form class="col-12 col-lg-auto mb-3 mb-lg-0" role="search">
-        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+      <form action="{% url 'search' %}" class="col-12 col-lg-auto mb-3 mb-lg-0" role="search">
+        <div class="input-group">
+          <input 
+            name="q"
+            type="search"
+            class="form-control"
+            placeholder="Search..."
+            aria-label="Search"
+          />
+          <button type="submit" class="btn btn-success">Search</button>
+        </div>
       </form>
     </div>
   </header>

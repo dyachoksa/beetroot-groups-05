@@ -12,7 +12,7 @@ reviews_per_page = 10
 
 
 def book_list(request):
-    books = Book.objects.order_by('-created_at')
+    books = Book.objects.select_related('author').order_by('-created_at')
     paginator = Paginator(books, books_per_page)
 
     page_number = request.GET.get("page")
@@ -41,11 +41,11 @@ def book_detail(request, pk):
 
             messages.success(request, "Your review has been added successfully.")
 
-            return redirect("books_detail", book.pk)
+            return redirect(book)
     else:
         review_form = ReviewForm()
 
-    reviews = book.reviews.order_by('-created_at')
+    reviews = book.reviews.select_related('user').order_by('-created_at')
     paginator = Paginator(reviews, reviews_per_page)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
@@ -61,7 +61,7 @@ def book_detail(request, pk):
 
 def author_detail(request, pk):
     author = get_object_or_404(Author, pk=pk)
-    books = Book.objects.filter(author=author).order_by('title')
+    books = Book.objects.filter(author=author).select_related('author').order_by('title')
 
     context = {
         "author": author,

@@ -24,12 +24,14 @@ from pages import views
 
 
 urlpatterns = [
+    path('__debug__/', include('debug_toolbar.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('authors/<int:pk>/', book_views.author_detail, name="books_author"),
     path('books/<int:pk>/', book_views.book_detail, name="books_detail"),
-    path('books/', book_views.book_list),
+    path('books/', book_views.book_list, name="books_list"),
     path('about/', views.about, name="about"),
     path('terms/', views.terms, name="terms"),
+    path('search/', views.search, name="search"),
     path('', views.home, name="index"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

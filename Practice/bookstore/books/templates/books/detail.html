@@ -31,7 +31,7 @@
         </div>
     </div>
 
-    <h3 class="mt-4">Reviews ({{ book.reviews.count }})</h3>
+    <h3 class="mt-4">Reviews ({{ reviews.paginator.count }})</h3>
 
     {% if request.user.is_authenticated %}
         <div class="mt-4">
