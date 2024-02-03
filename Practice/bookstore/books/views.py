@@ -5,13 +5,15 @@ from django.shortcuts import render, get_object_or_404, redirect
 from reviews.forms import ReviewForm
 from reviews.models import Review
 
-from .models import Author, Book
+from .models import Author, Category, Book
 
 books_per_page = 12
 reviews_per_page = 10
 
 
 def book_list(request):
+    categories = Category.objects.all().order_by('name')
+
     books = Book.objects.select_related('author').order_by('-created_at')
     paginator = Paginator(books, books_per_page)
 
@@ -20,14 +22,33 @@ def book_list(request):
 
     context = {
         "books": page_obj,
-        "current_page": page_number
+        "current_page": page_number,
+        "categories": categories,
     }
 
     return render(request, "books/list.html", context=context)
 
 
+def category_detail(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+
+    books = category.books.select_related("author").order_by('-created_at')
+    paginator = Paginator(books, books_per_page)
+    
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        "category": category,
+        "books": page_obj,
+    }
+
+    return render(request, "books/category.html", context=context)
+
+
 def book_detail(request, pk):
-    book = get_object_or_404(Book, pk=pk)
+    book_qs = Book.objects.select_related("author", "category")
+    book = get_object_or_404(book_qs, pk=pk)
 
     if request.method == "POST":
         review_form = ReviewForm(request.POST)

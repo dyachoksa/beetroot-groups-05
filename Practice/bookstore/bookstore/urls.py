@@ -28,6 +28,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('authors/<int:pk>/', book_views.author_detail, name="books_author"),
+    path('books/by-category/<slug:slug>/', book_views.category_detail, name="books_category"),
     path('books/<int:pk>/', book_views.book_detail, name="books_detail"),
     path('books/', book_views.book_list, name="books_list"),
     path('about/', views.about, name="about"),

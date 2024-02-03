@@ -19,7 +19,10 @@
             <div>
                 <p>
                 {% if book.author %}
-                    <strong>Author</strong>: <a href="{% url 'books_author' book.author.id %}">{{ book.author.name }}</a> <br>
+                    <strong>Author</strong>: <a href="{{ book.author.get_absolute_url }}">{{ book.author.name }}</a> <br>
+                {% endif %}
+                {% if book.category %}
+                    <strong>Category</strong>: <a href="{{ book.category.get_absolute_url }}">{{ book.category.name }}</a><br>
                 {% endif %}
                 <strong>Publication year</strong>: {{ book.pub_year }}<br>
                 <strong>ISBN</strong>: {{ book.isbn }}</p>

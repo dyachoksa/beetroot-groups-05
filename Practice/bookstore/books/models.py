@@ -19,9 +19,36 @@ class Author(models.Model):
         return reverse("books_author", kwargs={"pk": self.pk})
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=150)
+    slug = models.SlugField(max_length=150, unique=True)
+    image = models.ImageField(blank=True, null=True, upload_to="books/categories")
+    description = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "category"
+        verbose_name_plural = "categories"
+
+    def __str__(self) -> str:
+        return self.name
+    
+    def __repr__(self) -> str:
+        return "<Category id={} name={} slug={}>".format(
+            self.pk, self.name, self.slug
+        )
+    
+    def get_absolute_url(self):
+        return reverse("books_category", kwargs={"slug": self.slug})
+
+
 class Book(models.Model):
     author = models.ForeignKey(
         Author, on_delete=models.SET_NULL, blank=True, null=True, related_name="books"
+    )
+    category = models.ForeignKey(
+        Category, on_delete=models.SET_NULL, null=True, blank=False, related_name="books"
     )
     image = models.ImageField(blank=True, null=True, upload_to="books/images/%Y")
     title = models.CharField(max_length=300)
