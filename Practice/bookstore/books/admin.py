@@ -23,7 +23,7 @@ class BookAdmin(admin.ModelAdmin):
 
     search_fields = ("title", "description", "author__name")
 
-    list_display = ("title", "author", "category", "isbn", "pub_year", "created_at")
+    list_display = ("title", "author", "category", "isbn", "pub_year", "num_views", "created_at")
     list_filter = ("pub_year", "created_at")
     list_select_related = ("author", "category")
     

@@ -6,7 +6,7 @@
 {% block content %}
     <h1>All books</h1>
 
-    <div class="mt-1">
+    <div class="mt-1 d-flex">
         <ul class="nav nav-underline">
             {% for category in categories %}
                 <li class="nav-item">
@@ -14,6 +14,24 @@
                 </li>
             {% endfor %}
         </ul>
+
+        <div class="ms-auto">
+            <ul class="nav nav-underline">
+                <li class="nav-item">
+                    <a class="nav-link disabled" aria-disabled="true">Sort by:</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="?sortBy=created_at" class="nav-link">Date</a>
+                </li>
+                <li class="nav-item">
+                    <a href="?sortBy=title" class="nav-link">Title</a>
+                </li>
+                <li class="nav-item">
+                    <a href="?sortBy=num_views" class="nav-link">Views</a>
+                </li>
+            </ul>
+        </div>
     </div>
 
     <div class="mt-1 row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
@@ -24,9 +42,11 @@
         {% endfor %}
     </div>
 
-    <div class="mt-4">
-        {% bootstrap_pagination books justify_content='center' %}
-    </div>
+    {% if books.paginator.num_pages > 1 %}
+        <div class="mt-4">
+            {% bootstrap_pagination books justify_content='center' %}
+        </div>
+    {% endif %}
 
     <!--
     <nav class="mt-4" aria-label="Books pagination">

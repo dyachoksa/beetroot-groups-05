@@ -55,6 +55,7 @@ class Book(models.Model):
     isbn = models.CharField(max_length=50)
     description = models.TextField(blank=False, null=False)
     pub_year = models.PositiveIntegerField("publication year")
+    num_views = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
