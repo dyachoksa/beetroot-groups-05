@@ -1,12 +1,13 @@
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
 
 
 class Review(models.Model):
     book = models.ForeignKey("books.Book", on_delete=models.CASCADE, related_name="reviews")
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="reviews")
     content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:

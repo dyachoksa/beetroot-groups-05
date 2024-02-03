@@ -1,7 +1,12 @@
-from django.db.models import Q
-from django.shortcuts import render, redirect
+from datetime import timedelta
 
-from books.models import Book
+from operator import itemgetter
+from django.db.models import Q, Count
+from django.db.models.functions import TruncDate
+from django.shortcuts import render, redirect
+from django.utils import timezone
+
+from books.models import Book, Category
 from reviews.models import Review
 
 
@@ -33,6 +38,51 @@ def search(request):
     }
 
     return render(request, "search_results.html", context=context)
+
+def stats(request):
+    ## Categories stats
+    categories = Category.objects.annotate(num_books=Count("books")).order_by('name')
+
+    # labels, data = [], []
+    # for category in categories:
+    #     labels.append(category.name)
+    #     data.append(category.num_books)
+    # or
+    labels = [category.name for category in categories]
+    data = [category.num_books for category in categories]
+
+    categories_data = {
+      "labels": labels,
+      "datasets": [{
+        "label": 'Number of books',
+        "data": data,
+        "hoverOffset": 4
+      }]
+    }
+
+    ## Reviews stats
+    reviews = Review.objects\
+        .filter(created_at__gte=timezone.now() - timedelta(days=7))\
+        .annotate(review_date=TruncDate("created_at"))\
+        .values("review_date")\
+        .annotate(num_reviews=Count("id"))\
+        .order_by("review_date")
+    
+    reviews_data = {
+        "labels": list(map(lambda x: x['review_date'].strftime('%b %d, %Y'), reviews)),
+        "datasets": [{
+            "label": "Number of reviews",
+            "data": list(map(itemgetter('num_reviews'), reviews)),
+            "tension": 0.3
+        }]
+    }
+
+    context = {
+        "categories_data": categories_data,
+        "reviews_data": reviews_data,
+    }
+
+    return render(request, "stats.html", context=context)
 
 
 def about(request):
