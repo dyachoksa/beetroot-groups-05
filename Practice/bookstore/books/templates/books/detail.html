@@ -56,12 +56,14 @@
                 <small class="text-muted">{{ review.user.username }}</small>
             </h5>
             <div>
-                {{ review.content }}
+                {{ review.content | linebreaks }}
             </div>
         </div>
     {% endfor %}
 
-    <div class="mt-4">
-        {% bootstrap_pagination reviews justify_content='center' %}
-    </div>
+    {% if reviews.paginator.num_pages > 1 %}
+        <div class="mt-4">
+            {% bootstrap_pagination reviews justify_content='center' %}
+        </div>
+    {% endif %}
 {% endblock %}

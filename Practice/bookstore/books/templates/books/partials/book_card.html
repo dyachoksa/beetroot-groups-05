@@ -1,9 +1,9 @@
 {% load static %}
 <div class="card h-100">
     {% if book.image %}
-        <img class="card-img-top" src="{{ book.image.url }}" alt="{{ book.title }}" />
+        <img class="card-img-top" src="{{ book.image_thumbnail.url }}" width="280" height="400" alt="{{ book.title }}" />
     {% else %}
-        <img class="card-img-top" src="{% static 'img/no_image.png' %}" alt="{{ book.title }}" />
+        <img class="card-img-top" src="{% static 'img/no_image.png' %}" width="280" height="400" alt="{{ book.title }}" />
     {% endif %}
     <div class="card-body">
         <h5 class="card-title">

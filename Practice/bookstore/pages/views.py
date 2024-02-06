@@ -11,10 +11,12 @@ from reviews.models import Review
 
 
 def home(request):
+    featured_books = Book.objects.filter(is_featured=True).order_by('-created_at')
     latest_books = Book.objects.select_related('author').order_by('-created_at')[:4]
     latest_reviews = Review.objects.select_related('book', 'user').order_by('-created_at')[:5]
 
     context = {
+        "featured_books": featured_books,
         "latest_books": latest_books,
         "latest_reviews": latest_reviews,
     }

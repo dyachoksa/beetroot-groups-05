@@ -57,11 +57,11 @@ def category_detail(request, slug):
     return render(request, "books/category.html", context=context)
 
 
-def book_detail(request, pk):
-    Book.objects.filter(pk=pk).update(num_views=F("num_views") + 1)
+def book_detail(request, slug):
+    Book.objects.filter(slug=slug).update(num_views=F("num_views") + 1)
 
     book_qs = Book.objects.select_related("author", "category")
-    book = get_object_or_404(book_qs, pk=pk)
+    book = get_object_or_404(book_qs, slug=slug)
 
     if request.method == "POST":
         review_form = ReviewForm(request.POST)
@@ -93,8 +93,8 @@ def book_detail(request, pk):
     return render(request, "books/detail.html", context=context)
 
 
-def author_detail(request, pk):
-    author = get_object_or_404(Author, pk=pk)
+def author_detail(request, slug):
+    author = get_object_or_404(Author, slug=slug)
     books = Book.objects.filter(author=author).select_related('author').order_by('title')
 
     context = {
